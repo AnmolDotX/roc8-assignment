@@ -1,7 +1,9 @@
 import { sendVerificationEmail } from "@/helpers/sendVerificationEmail";
+import { isError } from "@/lib/errors";
 import { db } from "@/server/db";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req : Request) {
+export async function POST(req : NextRequest) {
     try {
         const { name, email, password } = await req.json()
         const newOTP = Math.floor(100000+Math.random()*900000)
@@ -13,7 +15,7 @@ export async function POST(req : Request) {
         })
         
         if(existingUserByEmail) {
-            return Response.json({
+            return NextResponse.json({
                 success : false,
                 message : "Email already exists"
             }, {
@@ -24,7 +26,7 @@ export async function POST(req : Request) {
         console.log(emailResponse)
 
         if(!emailResponse.success) {
-            return Response.json({
+            return NextResponse.json({
                 success : emailResponse.success,
                 message : `Error sending email for OTP : ${emailResponse.message}`
             }, {
@@ -45,7 +47,7 @@ export async function POST(req : Request) {
         }
 
         if(!tempUserStored) {
-            return Response.json({
+            return NextResponse.json({
                 success : false,
                 message : "Error Creating temporary user! "
             }, {
@@ -53,7 +55,7 @@ export async function POST(req : Request) {
             })
         }
 
-        return Response.json({
+        return NextResponse.json({
             success : true,
             message : "Otp send successfully!"
         }, {
@@ -61,16 +63,11 @@ export async function POST(req : Request) {
         })
 
     } catch (error) {
-        console.log('Error registering user', error)
-        return Response.json(
-            {
-                success : false,
-                message : "Error in registering user"
-            },
-            {
-                status : 500
-            }
-        )
+        if (isError(error)) {
+            return NextResponse.json({ success: false, message: error.message }, { status: 500 });
+          } else {
+            return NextResponse.json({ success: false, message: "An unknown error occurred" }, { status: 500 });
+          }
     }
     
 }

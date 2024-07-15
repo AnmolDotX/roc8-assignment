@@ -16,7 +16,6 @@ model User {
   email          String   @unique
   password       String
   emailVerified  Boolean  @default(false)
-  accessToken    String?
   refreshToken   String?
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
