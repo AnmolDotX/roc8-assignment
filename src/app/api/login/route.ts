@@ -2,10 +2,9 @@ import { db } from "@/server/db";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from 'bcrypt'
 import { generateAccessToken, generateRefreshToken } from "@/helpers/tokenManager"
-import Error from "next/error";
 import { CustomError, isError } from "@/lib/errors";
 
-export const generateAccessAndRefereshTokens = async(user : any) =>{
+const generateAccessAndRefereshTokens = async(user : any) =>{
     try {
         const accessToken = generateAccessToken(user)
         

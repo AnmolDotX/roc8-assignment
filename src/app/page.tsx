@@ -5,7 +5,7 @@ export default function HomePage() {
   return (
     <main className="">
       <h1>Hello world</h1>
-      <EmailTemplate name = "Anmol" email="kumaranmol@gmail.com" otp= {12345}/>
+      <p>Welcome home brother</p>
     </main>
   );
 }
