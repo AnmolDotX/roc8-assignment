@@ -14,8 +14,13 @@ interface NewUser {
   updatedAt : Date
 }
 
+interface RequestBody {
+  email : string;
+  otp : number
+}
+
 export async function POST(req: NextRequest) {
-  const { email, otp } = await req.json();
+  const { email, otp } : RequestBody = await req.json();
   try {
     const tempUser : TempUser | null = await db.tempUser.findUnique({
       where: { email },

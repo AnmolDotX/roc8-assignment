@@ -1,17 +1,24 @@
 import { sendVerificationEmail } from "@/helpers/sendVerificationEmail";
 import { isError } from "@/lib/errors";
 import { db } from "@/server/db";
-import { TempUser, User } from "@prisma/client";
-import { NextRequest, NextResponse } from "next/server";
+import type { TempUser, User } from "@prisma/client";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
 interface emailResponseType {
-  success : boolean,
-  message : true
+  success : boolean;
+  message : string;
+}
+
+interface SignupRequestBody {
+  name : string,
+  email : string,
+  password : string
 }
 
 export async function POST(req: NextRequest) {
   try {
-    const { name, email, password } = await req.json();
+    const { name, email, password } : SignupRequestBody = await req.json();
 
     const newOTP = Math.floor(100000 + Math.random() * 900000);
 
@@ -33,7 +40,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const {success, message} : {success : boolean, message : string} = await sendVerificationEmail({
+    const {success, message} : emailResponseType = await sendVerificationEmail({
       email,
       name,
       otp: newOTP,

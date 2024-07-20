@@ -1,10 +1,17 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 import { db } from "@/server/db";
-import { UserCategory } from "@prisma/client";
+import type { UserCategory } from "@prisma/client";
+
+interface RequestBody {
+  userId: string;
+  categoryId: number;
+  isChecked: boolean;
+}
 
 export async function POST(req: NextRequest) {
 
-  const { userId, categoryId, isChecked } = await req.json();
+  const { userId, categoryId, isChecked } : RequestBody = await req.json();
 
   try {
     const userCategory : UserCategory = await db.userCategory.upsert({

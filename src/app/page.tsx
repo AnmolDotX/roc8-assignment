@@ -41,7 +41,7 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    fetchCategories(currentPage);
+    fetchCategories(currentPage).catch((e : Error)=>toast.error(e.message));
   }, [currentPage]);
 
   const handlePageChange = (newPage: number) => {

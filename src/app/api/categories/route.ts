@@ -1,6 +1,7 @@
 import { db } from "@/server/db";
-import { NextRequest, NextResponse } from "next/server";
-import { Category } from "@prisma/client";
+import type {NextRequest} from 'next/server'
+import { NextResponse } from "next/server";
+import type { Category } from "@prisma/client";
 
 interface CategoryWithChecked extends Category {
   isChecked: boolean;
@@ -21,13 +22,17 @@ interface ApiResponse {
   error?: string;
 }
 
+interface RequestBody {
+  userId : number
+}
+
 export async function POST(req: NextRequest): Promise<NextResponse<ApiResponse>> {
   try {
     const url = new URL(req.url);
     const page = parseInt(url.searchParams.get('page') ?? '1');
     const limit = parseInt(url.searchParams.get('limit') ?? '6');
     const skip = (page - 1) * limit;
-    const {userId} : {userId : number} = await req.json();
+    const { userId } : RequestBody = await req.json();
 
     const [categories, totalCategories, user] = await Promise.all([
       db.category.findMany({

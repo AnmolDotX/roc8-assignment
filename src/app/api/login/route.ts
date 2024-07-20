@@ -1,12 +1,13 @@
 import { db } from "@/server/db";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 import bcrypt from "bcrypt";
 import {
   generateAccessToken,
   generateRefreshToken,
 } from "@/helpers/tokenManager";
 import { CustomError, isError } from "@/lib/errors";
-import { User } from "@prisma/client";
+import type { User } from "@prisma/client";
 
 const generateAccessAndRefereshTokens = async (user: User) => {
   try {
@@ -29,9 +30,14 @@ const generateAccessAndRefereshTokens = async (user: User) => {
   }
 };
 
+interface LoginRequestBody {
+  email: string;
+  password: string;
+}
+
 export async function POST(req: NextRequest) {
   try {
-    const { email, password } : { email : string, password : string } = await req.json();
+    const { email, password } : LoginRequestBody = await req.json();
 
     const user : User | null = await db.user.findUnique({
       where: { email },
