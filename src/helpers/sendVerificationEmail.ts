@@ -10,7 +10,7 @@ interface propData {
 dotenv.config();
 
 export async function sendVerificationEmail({ email, name, otp }: propData) {
-  const apiKey = process.env.MAILERSEND_API_KEY as string;
+  const apiKey = process.env.MAILERSEND_API_KEY;
 
   if (!apiKey) {
     throw new Error(
