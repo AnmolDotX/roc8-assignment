@@ -11,6 +11,8 @@ export async function POST(req: NextRequest) {
   // }
 
   const { userId, categoryId, isChecked } = await req.json();
+  console.log(userId, categoryId, isChecked);
+  
 
   try {
     const userCategory = await prisma.userCategory.upsert({

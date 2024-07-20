@@ -66,10 +66,23 @@ const HomePage = () => {
     }
   };
 
-  const categoryChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    // Implement your category change logic here
-    const {checked} = e.target;
-
+  const categoryChangeHandler = async (e: ChangeEvent<HTMLInputElement>) => {
+    const categoryId = parseInt(e.target.id);
+    const isChecked = e.target.checked;
+    try {
+      await appClient.post('/api/toggle-category', {
+        userId: loggedInUser.id,
+        categoryId,
+        isChecked,
+      });
+      setCategories(prevCategories =>
+        prevCategories.map(category =>
+          category.id === categoryId ? { ...category, isChecked } : category
+        )
+      );
+    } catch (error) {
+      console.error("Error toggling category:", error);
+    }
   };
 
   const getPaginationButtons = (): (number | string)[] => {
