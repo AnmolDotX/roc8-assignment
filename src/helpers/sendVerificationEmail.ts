@@ -45,6 +45,10 @@ export async function sendVerificationEmail({ email, name, otp }: propData) {
         message: "Verification email sent successfully.",
       };
     }
+    return {
+      success : false,
+      message : "can't able to send email!"
+    }
   } catch (error) {
     console.error("Error sending verification email:", error);
     return {
