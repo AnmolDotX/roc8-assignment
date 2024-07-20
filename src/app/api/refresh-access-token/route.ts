@@ -11,7 +11,7 @@ interface RefreshTokenRequestBody {
 
 export async function POST(req: NextRequest) {
   try {
-    const { token } : RefreshTokenRequestBody = await req.json();
+    const { token } : RefreshTokenRequestBody = await req.json() as RefreshTokenRequestBody;
 
     const user : User | null = await db.user.findFirst({
       where: { refreshToken: token }

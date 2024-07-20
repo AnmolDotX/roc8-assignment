@@ -1,6 +1,7 @@
 "use client"
 import type { IUser } from '@/interfaces/UserLoginInterface';
-import React, { createContext, useContext, useState, ReactNode, Dispatch, SetStateAction } from 'react';
+import React, { createContext, useContext, useState } from 'react';
+import type { ReactNode, SetStateAction, Dispatch } from 'react';
 
 interface UserData {
   fullname: string;

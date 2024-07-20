@@ -4,10 +4,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import type { ChangeEvent, FormEvent } from 'react'
-import { AxiosResponse } from "axios";
+import type { AxiosResponse } from "axios";
 import { toast } from "sonner";
 import appClient from "@/lib/appClient";
-import { OtpResponse } from "@/interfaces/SignupResponseInterface";
+import type { OtpResponse } from "@/interfaces/SignupResponseInterface";
 
 const SignupPage = () => {
     const {email, fullname, password, setUserData} = useUserContext();

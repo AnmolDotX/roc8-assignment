@@ -1,8 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 import { db } from "@/server/db";
 import bcrypt from "bcrypt";
 import { isError } from "@/lib/errors";
-import { TempUser, UserCategory } from "@prisma/client";
+import type { TempUser, UserCategory } from "@prisma/client";
 
 interface NewUser {
   id : number | string,
@@ -20,7 +21,7 @@ interface RequestBody {
 }
 
 export async function POST(req: NextRequest) {
-  const { email, otp } : RequestBody = await req.json();
+  const { email, otp } : RequestBody = await req.json() as RequestBody;
   try {
     const tempUser : TempUser | null = await db.tempUser.findUnique({
       where: { email },

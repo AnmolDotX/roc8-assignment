@@ -37,7 +37,7 @@ interface LoginRequestBody {
 
 export async function POST(req: NextRequest) {
   try {
-    const { email, password } : LoginRequestBody = await req.json();
+    const { email, password } : LoginRequestBody = await req.json() as LoginRequestBody;
 
     const user : User | null = await db.user.findUnique({
       where: { email },
@@ -59,8 +59,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { accessToken, refreshToken } =
-      await generateAccessAndRefereshTokens(user);
+    const { accessToken, refreshToken } = await generateAccessAndRefereshTokens(user);
 
     const loggedInUser = await db.user.findUnique({
       where: {

@@ -1,9 +1,10 @@
 "use client";
 
 import { useUserContext } from "@/context/UserContext";
-import { Category, PaginatedCategoryResponseInterface } from "@/interfaces/CategoryFetchResponseInterface";
+import type { Category, PaginatedCategoryResponseInterface } from "@/interfaces/CategoryFetchResponseInterface";
 import appClient from "@/lib/appClient";
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import type { ChangeEvent } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { toast } from "sonner";
 

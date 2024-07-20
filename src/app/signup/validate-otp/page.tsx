@@ -1,8 +1,8 @@
 "use client"
 import { useUserContext } from "@/context/UserContext";
-import { ValidateOTPResponseInterface } from "@/interfaces/ValidateOTPInterface";
+import type { ValidateOTPResponseInterface } from "@/interfaces/ValidateOTPInterface";
 import appClient from "@/lib/appClient";
-import { AxiosResponse } from "axios";
+import type { AxiosResponse } from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import type {ChangeEvent, KeyboardEvent, FormEvent} from 'react'

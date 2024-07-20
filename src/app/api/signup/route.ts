@@ -18,7 +18,7 @@ interface SignupRequestBody {
 
 export async function POST(req: NextRequest) {
   try {
-    const { name, email, password } : SignupRequestBody = await req.json();
+    const { name, email, password } : SignupRequestBody = await req.json() as SignupRequestBody;
 
     const newOTP = Math.floor(100000 + Math.random() * 900000);
 

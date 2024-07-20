@@ -11,7 +11,7 @@ interface RequestBody {
 
 export async function POST(req: NextRequest) {
 
-  const { userId, categoryId, isChecked } : RequestBody = await req.json();
+  const { userId, categoryId, isChecked } : RequestBody = await req.json() as RequestBody;
 
   try {
     const userCategory : UserCategory = await db.userCategory.upsert({

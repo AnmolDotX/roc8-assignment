@@ -32,7 +32,7 @@ export async function POST(req: NextRequest): Promise<NextResponse<ApiResponse>>
     const page = parseInt(url.searchParams.get('page') ?? '1');
     const limit = parseInt(url.searchParams.get('limit') ?? '6');
     const skip = (page - 1) * limit;
-    const { userId } : RequestBody = await req.json();
+    const { userId } : RequestBody = await req.json() as RequestBody;
 
     const [categories, totalCategories, user] = await Promise.all([
       db.category.findMany({
