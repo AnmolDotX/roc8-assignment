@@ -1,29 +1,111 @@
-# Create T3 App
+# Roc8-Moonshot Fullstack Assingment
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+This project was developed as a take-home assignment for a Fullstack Developer position at Roc8-Career as part of the Moonshot competition. The application is built using Next.js, TypeScript, Tailwind CSS, Prisma, and PostgreSQL (NeonDB), and is deployed on Vercel.
 
-## What's next? How do I make an app with this?
+## Table of Contents
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Environment Variables](#environment-variables)
+  - [Running the Application](#running-the-application)
+- [Deployment](#deployment)
+- [Future Plans](#future-plans)
+- [Contact](#contact)
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## Features
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+- **Signup System with OTP**: Users can sign up using their email. An OTP is sent to the provided email for verification.
+- **Login**: Users can log in using their email and password.
+- **Category Management**: Logged-in users can view all categories and toggle (check/uncheck) their selection. The selected categories are saved to their profile and persisted across sessions.
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+## Tech Stack
 
-## Learn More
+- **Frontend**: Next.js, TypeScript, Tailwind CSS
+- **Backend**: Next.js API Routes, Prisma ORM
+- **Database**: PostgreSQL (NeonDB)
+- **Deployment**: Vercel
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+## Getting Started
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+### Prerequisites
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+- Node.js (v18 or higher)
+- npm or yarn
+- PostgreSQL
 
-## How do I deploy this?
+### Installation
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+1. Clone the repository:
+
+```bash
+git clone https://github.com/AnmolDotX/roc8-assignment.git
+cd roc8-assignment
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+```
+
+### Environment Variables
+
+Create a `.env` file in the root of your project and add the following environment variables:
+
+```plaintext
+
+API_BASE_URL="same as the base url for this app"
+DATABASE_URL="postgres database connection string"
+
+ACCESS_TOKEN_SECRET="your secret access token key"
+REFRESH_TOKEN_SECRET="your secret refresh token key"
+MAILERSEND_API_KEY="your mailersend api key"
+
+
+```
+
+### Running the Application
+
+1. Generate Prisma model in Database:
+
+```bash
+npm run db:generate
+```
+
+2. seed 100 of data in database:
+
+```bash
+cd src/data
+node seed.js
+```
+
+3. Start the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+The application will be available at `http://localhost:3000`.
+
+## Deployment
+
+The application is deployed on Vercel. [live](https://roc8-assignment-by-anmol.vercel.app/)
+
+## Future Plans
+
+- **New Endpoints**:
+  - `checked-category`: Allows users to fetch only their checked categories.
+  - `logout`: Removes the HTTP-only cookie set at login to log the user out.
+  
+- **CSS Enhancements**: Improve the visual aesthetics of the application.
+- **Additional Features**: More user profile options and settings.
+
+## Contact
+
+For any questions or feedback, feel free to contact me at [anmolfolio@gmail.com](mailto:anmolfolio@gmail.com).
