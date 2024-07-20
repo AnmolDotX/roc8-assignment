@@ -2,10 +2,12 @@
 import { useUserContext } from "@/context/UserContext";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, FormEvent, useState } from "react";
-import axios from "axios";
+import { useState } from "react";
+import type { ChangeEvent, FormEvent } from 'react'
+import { AxiosResponse } from "axios";
 import { toast } from "sonner";
 import appClient from "@/lib/appClient";
+import { OtpResponse } from "@/interfaces/SignupResponseInterface";
 
 const SignupPage = () => {
     const {email, fullname, password, setUserData} = useUserContext();
@@ -24,11 +26,12 @@ const SignupPage = () => {
         e.preventDefault();
         try {
             setIsLoading(true)
-            const response = await appClient.post('/api/signup', {
+            const response : AxiosResponse<OtpResponse> = await appClient.post('/api/signup', {
                 name : fullname,
                 email,
                 password
             });
+            
             setIsLoading(false);
             if(response.data?.success) {
                 toast.success(response.data?.message)

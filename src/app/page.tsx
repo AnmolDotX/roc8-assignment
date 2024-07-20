@@ -1,27 +1,11 @@
 "use client";
 
 import { useUserContext } from "@/context/UserContext";
+import { Category, PaginatedCategoryResponseInterface } from "@/interfaces/CategoryFetchResponseInterface";
 import appClient from "@/lib/appClient";
 import { ChangeEvent, useEffect, useState } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { toast } from "sonner";
-
-interface Category {
-  id: number;
-  name: string;
-  isChecked: boolean;
-}
-
-interface PaginationResponse {
-  success: boolean;
-  data: {
-    categories: Category[];
-    pagination: {
-      totalPages: number;
-    };
-  };
-  message?: string;
-}
 
 const HomePage = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -34,7 +18,7 @@ const HomePage = () => {
   const fetchCategories = async (page: number) => {
     try {
       setIsLoading(true)
-      const { data }: { data: PaginationResponse } = await appClient.post(`/api/categories?page=${page}&limit=6`, {
+      const { data }: { data: PaginatedCategoryResponseInterface } = await appClient.post(`/api/categories?page=${page}&limit=6`, {
         userId : loggedInUser.id
       });
       if (data.success) {
@@ -81,7 +65,7 @@ const HomePage = () => {
         )
       );
     } catch (error) {
-      console.error("Error toggling category:", error);
+      toast.error("Error toggling category app.tsx");
     }
   };
 

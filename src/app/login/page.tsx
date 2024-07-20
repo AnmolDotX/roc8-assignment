@@ -2,7 +2,7 @@
 import { useUserContext } from "@/context/UserContext";
 import { IUserLoginResponse } from "@/interfaces/UserLoginInterface";
 import appClient from "@/lib/appClient";
-import axios, { AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useState } from "react";
@@ -84,7 +84,7 @@ const LoginPage = () => {
                 }
             </button>
             <div className="flex items-center justify-center w-full gap-2 text-sm">
-                <p className="text-gray-700">Don't have an account ? </p>
+                <p className="text-gray-700">Don&apos;t have an account ? </p>
                 <Link href="/signup" className=" font-medium cursor-pointer hover:text-gray-800">Signup</Link>
             </div>
         </form>

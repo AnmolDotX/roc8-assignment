@@ -1,9 +1,11 @@
 "use client"
 import { useUserContext } from "@/context/UserContext";
+import { ValidateOTPResponseInterface } from "@/interfaces/ValidateOTPInterface";
 import appClient from "@/lib/appClient";
-import axios from "axios";
+import { AxiosResponse } from "axios";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState, ChangeEvent, KeyboardEvent, FormEvent } from "react";
+import { useEffect, useRef, useState } from "react";
+import type {ChangeEvent, KeyboardEvent, FormEvent} from 'react'
 import { toast } from "sonner";
 
 let currentOtpIndex = 0;
@@ -39,9 +41,11 @@ const ValidateOTP = () => {
     e.preventDefault();
     try {
         setIsLoading(true)
-        const response = await appClient.post('/api/validate-otp', {
+        const response : AxiosResponse<ValidateOTPResponseInterface> = await appClient.post('/api/validate-otp', {
             email, otp : Number(otp.join(""))
         });
+        console.log(response);
+        
         if(!response.data?.success) {
             toast.error(response.data?.message)
         }

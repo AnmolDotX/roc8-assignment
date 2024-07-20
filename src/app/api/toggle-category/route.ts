@@ -1,21 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { db } from "@/server/db";
+import { UserCategory } from "@prisma/client";
 
 export async function POST(req: NextRequest) {
 
-  // const userId = req.headers.get("user-id");
-  // if (!userId) {
-  //   return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
-  // }
-
   const { userId, categoryId, isChecked } = await req.json();
-  console.log(userId, categoryId, isChecked);
-  
 
   try {
-    const userCategory = await prisma.userCategory.upsert({
+    const userCategory : UserCategory = await db.userCategory.upsert({
       where: {
         userId_categoryId: {
           userId: parseInt(userId, 10),

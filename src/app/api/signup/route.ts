@@ -1,7 +1,13 @@
 import { sendVerificationEmail } from "@/helpers/sendVerificationEmail";
 import { isError } from "@/lib/errors";
 import { db } from "@/server/db";
+import { TempUser, User } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
+
+interface emailResponseType {
+  success : boolean,
+  message : true
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -9,7 +15,7 @@ export async function POST(req: NextRequest) {
 
     const newOTP = Math.floor(100000 + Math.random() * 900000);
 
-    const existingUserByEmail = await db.user.findUnique({
+    const existingUserByEmail : User | null = await db.user.findUnique({
       where: {
         email: email,
       },
@@ -27,17 +33,17 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const emailResponse = await sendVerificationEmail({
+    const {success, message} : {success : boolean, message : string} = await sendVerificationEmail({
       email,
       name,
       otp: newOTP,
     });
 
-    if (!emailResponse.success) {
+    if (!success) {
       return NextResponse.json(
         {
-          success: emailResponse.success,
-          message: `Error sending email for OTP: ${emailResponse.message}`,
+          success,
+          message: `Error sending email for OTP: ${message}`,
         },
         {
           status: 500,
@@ -45,7 +51,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const tempUserStored = await db.tempUser.create({
+    const tempUserStored : TempUser = await db.tempUser.create({
       data: {
         email,
         username: name,

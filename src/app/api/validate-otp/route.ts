@@ -2,18 +2,29 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/server/db";
 import bcrypt from "bcrypt";
 import { isError } from "@/lib/errors";
+import { TempUser, UserCategory } from "@prisma/client";
+
+interface NewUser {
+  id : number | string,
+  email : string,
+  name : string, 
+  emailVerified : boolean,
+  checkedCategories : UserCategory[],
+  createdAt : Date,
+  updatedAt : Date
+}
 
 export async function POST(req: NextRequest) {
   const { email, otp } = await req.json();
   try {
-    const tempUser = await db.tempUser.findUnique({
+    const tempUser : TempUser | null = await db.tempUser.findUnique({
       where: { email },
     });
 
     if (tempUser && tempUser.otp === otp) {
       const hashedPassword = await bcrypt.hash(tempUser.password, 10);
 
-      let newUser;
+      let newUser : NewUser | null = null;
       if (hashedPassword) {
         newUser = await db.user.create({
           data: {
@@ -22,12 +33,23 @@ export async function POST(req: NextRequest) {
             password: hashedPassword,
             emailVerified : true
           },
+          select : {
+            password : false,
+            name : true,
+            id : true,
+            email : true,
+            emailVerified : true,
+            checkedCategories : true,
+            createdAt : true,
+            updatedAt : true
+          }
         });
       }
 
       await db.tempUser.delete({
         where: { email: tempUser.email },
       });
+
       return NextResponse.json({
         success: true,
         message: "New user registered successfully!",

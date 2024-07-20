@@ -24,10 +24,10 @@ interface ApiResponse {
 export async function POST(req: NextRequest): Promise<NextResponse<ApiResponse>> {
   try {
     const url = new URL(req.url);
-    const page = parseInt(url.searchParams.get('page') || '1');
-    const limit = parseInt(url.searchParams.get('limit') || '6');
+    const page = parseInt(url.searchParams.get('page') ?? '1');
+    const limit = parseInt(url.searchParams.get('limit') ?? '6');
     const skip = (page - 1) * limit;
-    const {userId} = await req.json();
+    const {userId} : {userId : number} = await req.json();
 
     const [categories, totalCategories, user] = await Promise.all([
       db.category.findMany({

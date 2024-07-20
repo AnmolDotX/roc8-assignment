@@ -1,5 +1,5 @@
 "use client"
-import { IUser } from '@/interfaces/UserLoginInterface';
+import type { IUser } from '@/interfaces/UserLoginInterface';
 import React, { createContext, useContext, useState, ReactNode, Dispatch, SetStateAction } from 'react';
 
 interface UserData {
@@ -18,7 +18,9 @@ const initialContextValue: UserContextValue = {
   fullname: "",
   email: "",
   password: "",
-  setUserData: () => {},
+  setUserData: () => {
+    // user data from signup
+  },
   loggedInUser: {
     id: 0,
     name: "",
@@ -29,7 +31,9 @@ const initialContextValue: UserContextValue = {
     createdAt: "",
     updatedAt: ""
   },
-  setLoggedInUser: () => {},
+  setLoggedInUser: () => {
+    // user data after login
+  },
 };
 
 const UserContext = createContext<UserContextValue>(initialContextValue);

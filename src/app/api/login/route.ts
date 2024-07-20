@@ -6,15 +6,16 @@ import {
   generateRefreshToken,
 } from "@/helpers/tokenManager";
 import { CustomError, isError } from "@/lib/errors";
+import { User } from "@prisma/client";
 
-const generateAccessAndRefereshTokens = async (user: any) => {
+const generateAccessAndRefereshTokens = async (user: User) => {
   try {
-    const accessToken = generateAccessToken(user);
+    const accessToken : string = generateAccessToken(user);
 
-    const refreshToken = generateRefreshToken(user);
+    const refreshToken : string = generateRefreshToken(user);
 
     await db.user.update({
-      where: { id: user?.id },
+      where: { id : user?.id },
       data: {
         refreshToken,
       },
@@ -30,9 +31,9 @@ const generateAccessAndRefereshTokens = async (user: any) => {
 
 export async function POST(req: NextRequest) {
   try {
-    const { email, password } = await req.json();
+    const { email, password } : { email : string, password : string } = await req.json();
 
-    const user = await db.user.findUnique({
+    const user : User | null = await db.user.findUnique({
       where: { email },
     });
 
@@ -43,7 +44,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const isPasswordCorrect = await bcrypt.compare(password, user.password);
+    const isPasswordCorrect : boolean = await bcrypt.compare(password, user.password);
 
     if (!isPasswordCorrect) {
       NextResponse.json(

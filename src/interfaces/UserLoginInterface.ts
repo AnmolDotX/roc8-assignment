@@ -6,11 +6,17 @@ export interface IUser {
     emailVerified: boolean;
     createdAt: string; 
     updatedAt: string; 
-    checkedCategories: any[];
+    checkedCategories: Category[];
 }
 
 export interface IUserLoginResponse {
     success: boolean;
     message: string;
     user: IUser;
+}
+
+interface Category {
+    id: number;
+    name: string;
+    isChecked: boolean;
 }

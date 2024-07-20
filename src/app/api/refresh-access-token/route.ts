@@ -2,12 +2,13 @@ import { db } from "@/server/db";
 import { NextRequest, NextResponse } from "next/server";
 import { generateAccessToken, generateRefreshToken } from "@/helpers/tokenManager";
 import { isError } from "@/lib/errors";
+import { User } from "@prisma/client";
 
 export async function POST(req: NextRequest) {
   try {
-    const { token } = await req.json();
+    const { token } : {token : string} = await req.json();
 
-    const user = await db.user.findFirst({
+    const user : User | null = await db.user.findFirst({
       where: { refreshToken: token }
     });
 

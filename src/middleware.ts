@@ -5,7 +5,7 @@ export async function middleware(req: NextRequest) {
 
   const path = req.nextUrl.pathname;
   const isPublicPath = path === '/login' || path == "/signup" || path == "/signup/validate-otp";
-  const accessToken = req.cookies.get("accessToken")?.value || '';
+  const accessToken = req.cookies.get("accessToken")?.value ?? '';
 
   if (!accessToken && !isPublicPath) {
     toast.error("Unauthorized")

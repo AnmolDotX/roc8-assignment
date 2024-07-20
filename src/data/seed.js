@@ -1,4 +1,3 @@
-
 import { faker } from '@faker-js/faker';
 import { PrismaClient } from '@prisma/client';
 
@@ -22,6 +21,9 @@ main()
     console.error(e);
     process.exit(1);
   })
-  .finally(async () => {
-    await prisma.$disconnect();
-});
+  .finally(() => {
+    prisma.$disconnect().catch(e => {
+      console.error(e);
+      process.exit(1);
+    });
+  });
