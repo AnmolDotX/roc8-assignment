@@ -19,6 +19,7 @@ model User {
   refreshToken   String?
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
+  checkedCategories UserCategory[]
 }
 
 model TempUser {
@@ -28,4 +29,22 @@ model TempUser {
   password  String
   otp       Int
   createdAt DateTime @default(now())
+}
+
+model Category {
+  id        Int     @id @default(autoincrement())
+  name      String
+  isChecked Boolean @default(false)
+  users     UserCategory[]
+}
+
+model UserCategory {
+  userId        Int
+  categoryId    Int
+  isChecked     Boolean         @default(false)
+
+  user          User            @relation(fields: [userId], references: [id])
+  category      Category        @relation(fields: [categoryId], references: [id])
+
+  @@id([userId, categoryId])
 }

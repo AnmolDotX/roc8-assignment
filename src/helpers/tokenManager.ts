@@ -3,12 +3,31 @@ import jwt from 'jsonwebtoken';
 const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET ?? "accessTokenSecret"
 const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET ?? "refreshTokenSecret"
 
-export const generateAccessToken = (user: any) => {
-  return jwt.sign(user, accessTokenSecret, { expiresIn: '1d' });
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  password: string;
+  emailVerified: boolean;
+  refreshToken: string | null;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
-export const generateRefreshToken = (user: any) => {
-  return jwt.sign(user, refreshTokenSecret, { expiresIn: '7d' });
+export const generateAccessToken = (user: User) => {
+  return jwt.sign({
+    userId : user.id,
+    email : user.email,
+    name : user.name
+  }, accessTokenSecret, { expiresIn: '1d' });
+}
+
+export const generateRefreshToken = (user: User) => {
+  return jwt.sign({
+    userId : user.id,
+    email : user.email,
+    name : user.name
+  }, refreshTokenSecret, { expiresIn: '7d' });
 }
 
 export const verifyAccessToken = (token: string) => {

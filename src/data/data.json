@@ -1,0 +1,32 @@
+[
+    {
+      "id": 1,
+      "name": "Shoes",
+      "isChecked" : false
+    },
+    {
+      "id": 2,
+      "name": "Men T-shirts",
+      "isChecked" : false
+    },
+    {
+      "id": 3,
+      "name": "Makeup",
+      "isChecked" : false
+    },
+    {
+      "id": 4,
+      "name": "Jewellery",
+      "isChecked" : false
+    },
+    {
+      "id": 5,
+      "name": "Women T-shirts",
+      "isChecked" : false
+    },
+    {
+      "id": 6,
+      "name": "Furniture",
+      "isChecked" : false
+    }
+  ]

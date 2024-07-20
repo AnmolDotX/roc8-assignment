@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useState } from "react";
 import axios from "axios";
 import { toast } from "sonner";
+import appClient from "@/lib/appClient";
 
 const SignupPage = () => {
     const {email, fullname, password, setUserData} = useUserContext();
@@ -23,7 +24,7 @@ const SignupPage = () => {
         e.preventDefault();
         try {
             setIsLoading(true)
-            const response = await axios.post('/api/signup', {
+            const response = await appClient.post('/api/signup', {
                 name : fullname,
                 email,
                 password
@@ -34,9 +35,9 @@ const SignupPage = () => {
                 router.push('signup/validate-otp')
             }
         } catch (error) {
-            toast.error("Error creating account!")
-        }
-        // router.push('signup/validate-otp');
+            console.log(error);
+            setIsLoading(false)
+        };
     }
 
     return (
@@ -60,8 +61,10 @@ const SignupPage = () => {
                 </label>
                 <input onChange={handleChange} value={password} id="password" name="password" className="border-2 w-full py-2 px-5 rounded-lg" type="text" placeholder="Enter your password " />
             </div>
-            <button type="submit" className="border-2 bg-black text-white w-full py-2 px-5 rounded-lg">
-                Create Account
+            <button type="submit" disabled={isLoading} className="border-2 bg-black text-white w-full py-2 px-5 rounded-lg">
+                {
+                    isLoading ? "...loading" : "Create Account"
+                }
             </button>
             <div className="flex items-center justify-center w-full gap-2 text-sm">
                 <p className="text-gray-700">Have an account ? </p>
