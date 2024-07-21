@@ -37,8 +37,13 @@ const SignupPage = () => {
                 toast.success(response.data?.message)
                 router.push('signup/validate-otp')
             }
-        } catch (error) {
-            console.log(error);
+            toast.error(response.data.message);
+        } catch (error : unknown) {
+           if(error instanceof Error) {
+            toast.error(error.message)
+           } else {
+            toast.error("unknown error while signing up")
+           }
             setIsLoading(false)
         };
     }
