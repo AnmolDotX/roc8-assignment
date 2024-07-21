@@ -70,7 +70,7 @@ const ValidateOTP = () => {
       <div className="border-2 border-gray-300 translate-y-16 h-[453px] w-[576px] rounded-2xl flex flex-col p-10 gap-14">
         <div className=" flex text-center flex-col gap-7">
           <h1 className="text-3xl font-semibold text-black">Verify your email</h1>
-          <p className="text-sm font-light flex flex-col">Enter the 8 digit code you have received on <span>{email}</span></p>
+          <p className="text-sm font-light flex flex-col">Enter the 6 digit code you have received on <span>{email}</span></p>
         </div>
         <form className="flex flex-col gap-16" onSubmit={handleSubmit}>
           <div className="flex flex-col gap-2">
