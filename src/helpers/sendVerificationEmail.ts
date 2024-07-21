@@ -53,7 +53,7 @@ export async function sendVerificationEmail({ email, name, otp }: propData) {
     console.error("Error sending verification email:", error);
     return {
       success: false,
-      message: "Failed to send verification email by resend",
+      message: "Failed to send verification email by mailersend",
     };
   }
 }
