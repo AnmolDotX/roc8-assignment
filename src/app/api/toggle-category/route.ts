@@ -29,12 +29,16 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    return NextResponse.json(userCategory, { status: 200 });
+    if(userCategory) {
+      return NextResponse.json({success : true, message : "todo toggled successfully", user: userCategory}, { status: 200 });
+    } 
+    return NextResponse.json({success : false, message : "failed to toggle todo", user: userCategory})
+    
   } catch (error) {
     if (error instanceof Error) {
-        return NextResponse.json({ error: error.message }, { status: 500 });
+        return NextResponse.json({ error: error.message });
     } else {
-        return NextResponse.json({ error: "Unknown error while updating category" }, { status: 500 });
+        return NextResponse.json({ error: "Unknown error while updating category" });
     }
   }
 }

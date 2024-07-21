@@ -29,13 +29,11 @@ export async function POST(req: NextRequest) {
     });
 
     if (existingUserByEmail) {
+      
       return NextResponse.json(
         {
           success: false,
           message: "Email already exists",
-        },
-        {
-          status: 400,
         }
       );
     }
@@ -49,11 +47,8 @@ export async function POST(req: NextRequest) {
     if (!success) {
       return NextResponse.json(
         {
-          success,
+          success : false,
           message: `Error sending email for OTP: ${message}`,
-        },
-        {
-          status: 500,
         }
       );
     }
@@ -72,9 +67,6 @@ export async function POST(req: NextRequest) {
         {
           success: false,
           message: "Error creating temporary user!",
-        },
-        {
-          status: 500,
         }
       );
     }
@@ -93,13 +85,11 @@ export async function POST(req: NextRequest) {
       console.log(error);
       
       return NextResponse.json(
-        { success: false, message: error.message },
-        { status: 500 }
+        { success: false, message: error.message }
       );
     } else {
       return NextResponse.json(
-        { success: false, message: "An unknown error occurred" },
-        { status: 500 }
+        { success: false, message: "An unknown error occurred" }
       );
     }
   }

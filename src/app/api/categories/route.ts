@@ -52,7 +52,7 @@ export async function POST(req: NextRequest): Promise<NextResponse<ApiResponse>>
       return NextResponse.json({
         success: false,
         message: "No categories available!"
-      }, { status: 400 });
+      });
     }
 
     const checkedCategoryIds = user ? user.checkedCategories.map(uc => uc.categoryId) : [];
@@ -77,9 +77,9 @@ export async function POST(req: NextRequest): Promise<NextResponse<ApiResponse>>
     });
   } catch (error) {
     if (error instanceof Error) {
-      return NextResponse.json({ success: false, message: error.message }, { status: 500 });
+      return NextResponse.json({ success: false, message: error.message });
     } else {
-      return NextResponse.json({ success: false, message: "Unknown error while loading categories" }, { status: 500 });
+      return NextResponse.json({ success: false, message: "Unknown error while loading categories" });
     }
   }
 }

@@ -37,6 +37,7 @@ const SignupPage = () => {
                 toast.success(response.data?.message)
                 router.push('signup/validate-otp')
             }
+            
             toast.error(response.data.message);
         } catch (error : unknown) {
            if(error instanceof Error) {

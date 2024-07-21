@@ -43,13 +43,9 @@ export async function POST(req: NextRequest) {
       where: { email },
     });
 
-    console.log(user);
-    
-
     if (!user) {
       return NextResponse.json(
-        { success: false, message: "User does not exist" },
-        { status: 404 },
+        { success: false, message: "User does not exist" }
       );
     }
 
@@ -57,8 +53,7 @@ export async function POST(req: NextRequest) {
 
     if (!isPasswordCorrect) {
       NextResponse.json(
-        { success: false, message: "Invalid Password" },
-        { status: 401 },
+        { success: false, message: "Invalid Password" }
       );
     }
 
@@ -102,13 +97,11 @@ export async function POST(req: NextRequest) {
     if (isError(error)) {
       
       return NextResponse.json(
-        { success: false, message: error.message },
-        { status: 500 },
+        { success: false, message: error.message }
       );
     } else {
       return NextResponse.json(
-        { success: false, message: "An unknown error occurred" },
-        { status: 500 },
+        { success: false, message: "An unknown error occurred" }
       );
     }
   }
