@@ -50,9 +50,10 @@ export async function POST(req: NextRequest) {
     }
 
     const isPasswordCorrect : boolean = await bcrypt.compare(password, user.password);
-
+    console.log(isPasswordCorrect);
+    
     if (!isPasswordCorrect) {
-      NextResponse.json(
+      return NextResponse.json(
         { success: false, message: "Invalid Password" }
       );
     }
