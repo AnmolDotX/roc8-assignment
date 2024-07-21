@@ -1,3 +1,6 @@
+import { LogoutResponse } from '@/interfaces/LogoutResponseType';
+import appClient from '@/lib/appClient';
+import { AxiosResponse } from 'axios';
 import React from 'react';
 import { toast } from 'sonner';
 
@@ -8,15 +11,12 @@ interface stateType {
 
 const LogoutButton: React.FC<stateType> = ({isVisible, visibleHandler}) => {
   const handleLogout = async () => {
-    const response = await fetch('/api/logout', {
-      method: 'GET',
-    });
-    
+    const response : AxiosResponse<LogoutResponse> = await appClient.get('/api/logout');
 
-    if (response.ok) {
+    if (response.data.success) {
       window.location.href = '/login';
     } else {
-      const data = await response.json();
+      const data : LogoutResponse = response.data;
       toast.error(data.message);
     }
   };
