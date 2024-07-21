@@ -43,6 +43,9 @@ export async function POST(req: NextRequest) {
       where: { email },
     });
 
+    console.log(user);
+    
+
     if (!user) {
       return NextResponse.json(
         { success: false, message: "User does not exist" },
@@ -97,6 +100,7 @@ export async function POST(req: NextRequest) {
     return respose;
   } catch (error: unknown) {
     if (isError(error)) {
+      
       return NextResponse.json(
         { success: false, message: error.message },
         { status: 500 },
