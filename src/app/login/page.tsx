@@ -43,7 +43,7 @@ const LoginPage = () => {
             
             if(data.success) {
                 toast.success(data.message);
-                router.replace('/')
+                window.location.href = '/';
                 setLoggedInUser(data.user)
             }
             if(!data.success) {

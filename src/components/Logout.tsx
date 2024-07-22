@@ -23,7 +23,7 @@ const LogoutButton: React.FC<stateType> = ({isVisible, visibleHandler}) => {
 
   return isVisible && (
     <button className="absolute -bottom-20 z-10  bg-white/90 backdrop-filter backdrop-blur-md rounded-md rounded-tr-none py-2 px-5  border-2 border-black shadow-2xl shadow-black/90">
-      <span onClick={handleLogout} className='hover:text-red-600 text-base z-10 text-red-400'> Logout</span>
+      <span onClick={handleLogout} className='hover:text-red-6004 text-base z-10 text-red-400'> Logout</span>
       <span onClick={visibleHandler} className='text-sm absolute -top-[30px] rounded-t-md bg-white/90 border-2 border-black border-b-0 -right-[2px] px-4 py-1 font-medium hover:text-black/70 hover:text-red-400 text-black backdrop-blur-md backdrop-filter'>{"X"}</span>
     </button>
   );

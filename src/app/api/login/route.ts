@@ -81,7 +81,7 @@ export async function POST(req: NextRequest) {
       secure: true,
     };
 
-    const respose = NextResponse.json(
+    const response = NextResponse.json(
       {
         success: true,
         message: "user logged in successfully",
@@ -91,9 +91,10 @@ export async function POST(req: NextRequest) {
         status: 200,
       },
     );
-    respose.cookies.set("accessToken", accessToken, options);
-    respose.cookies.set("refreshToken", refreshToken, options);
-    return respose;
+    response.cookies.set("accessToken", accessToken, options);
+    response.cookies.set("refreshToken", refreshToken, options);
+    response.headers.set("Location", "/");
+    return response;
   } catch (error: unknown) {
     if (isError(error)) {
       
