@@ -21,7 +21,7 @@ export async function GET() {
     });
 
     response.headers.set("Location", "/login");
-
+    
     return response;
   } catch (error) {
     return NextResponse.json(

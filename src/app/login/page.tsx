@@ -4,7 +4,6 @@ import type { IUserLoginResponse } from "@/interfaces/UserLoginInterface";
 import appClient from "@/lib/appClient";
 import type { AxiosResponse } from "axios";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import type {ChangeEvent, FormEvent} from 'react';
 import { toast } from "sonner";
@@ -21,7 +20,6 @@ const LoginPage = () => {
     });
     const {setLoggedInUser} = useUserContext()
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const router = useRouter()
 
     const handleChange = (e : ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
