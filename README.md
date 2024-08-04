@@ -63,7 +63,7 @@ DATABASE_URL="postgres database connection string"
 
 ACCESS_TOKEN_SECRET="your secret access token key"
 REFRESH_TOKEN_SECRET="your secret refresh token key"
-MAILERSEND_API_KEY="your mailersend api key"
+RESEND_API_KEY="your resend api key"
 
 
 ```
